@@ -50,6 +50,8 @@ class FilReader(Reader):
 
             #Taking care all the frequencies are assigned correctly.
             self._setup_selection_range(f_start=f_start, f_stop=f_stop, t_start=t_start, t_stop=t_stop, init=True)
+            print(self.f_start)
+            print(self.f_stop)
             #Convert input frequencies into what their corresponding channel number would be.
             self._setup_chans()
             #Update frequencies ranges from channel number.
@@ -77,6 +79,9 @@ class FilReader(Reader):
             else:
                 self.large_file = False
 
+            print(self.large_file)
+            print(self.isheavy())
+
             if self.load_data:
                 if self.large_file:
                     if self.f_start or self.f_stop or self.t_start or self.t_stop:
@@ -84,12 +89,12 @@ class FilReader(Reader):
                             logger.warning("Selection size of %.2f GB, exceeding our size limit %.2f GB. Instance created, header loaded, but data not loaded, please try another (t,v) selection." % (self._calc_selection_size() / (1024. ** 3), self.MAX_DATA_ARRAY_SIZE / (1024. ** 3)))
                             self._init_empty_selection()
                         else:
-                            self.read_data()
+                            self.read_data(self.f_start, self.f_stop, self.t_start, self.t_stop)
                     else:
                         logger.warning("The file is of size %.2f GB, exceeding our size limit %.2f GB. Instance created, header loaded, but data not loaded. You could try another (t,v) selection."%(self.file_size_bytes/(1024.**3), self.MAX_DATA_ARRAY_SIZE/(1024.**3)))
                         self._init_empty_selection()
                 else:
-                    self.read_data()
+                        self.read_data(self.f_start, self.f_stop, self.t_start, self.t_stop)
             else:
                 logger.info("Skipping loading data ...")
                 self._init_empty_selection()
