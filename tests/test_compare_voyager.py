@@ -51,6 +51,8 @@ def compare_waterfall_fil_to_h5_methods_and_attributes():
     assert a.n_ints_in_file == b.n_ints_in_file
     assert a.selection_shape == b.selection_shape
 
+    assert 1 == 2
+
     print("Checking if basic methods run without raising Exceptions")
     # Check they can be run
     a.container.populate_freqs()
