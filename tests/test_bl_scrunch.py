@@ -28,7 +28,7 @@ def test_nameless():
     """
 
     bl.bl_scrunch.bl_scrunch(voyager_h5, f_scrunch=8)
-    
+    exit()
     with pytest.raises(SystemExit):
         bl.bl_scrunch.cmd_tool()
 
